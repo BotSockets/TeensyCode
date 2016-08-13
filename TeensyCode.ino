@@ -20,6 +20,9 @@
 
 #define STOP_THRESH 2
 
+int DEF_MOT_SPEED = 100; // Default motor speed
+int TEST_INT = 0;
+
 NewPing sonar(USTRIGGER, USECHO);
 int LED[3] = {RLED, GLED, BLED};
 int IR[3] = {LIR, CIR, RIR};
@@ -35,9 +38,9 @@ void setup() {
   pinMode(VDIV, INPUT);
 
   //Serial, for outputting... stuff.
-  Serial.begin(9600);
+  Serial1.begin(9600); // USB is always 12 Mbit/sec
 
-  setMotors(100, 100);
+  setMotors(DEF_MOT_SPEED, DEF_MOT_SPEED);
 }
 
 void loop() {
@@ -47,6 +50,10 @@ void loop() {
     digitalWrite(LED[i], 1);
     //Serial.println(sonar.ping_cm());
     //Serial.println(checkIR(IR[i]));
+
+    TEST_INT++;
+    Serial.println(TEST_INT);
+    
     delay(1000);
   }
   
@@ -114,4 +121,3 @@ void followLineUntilJunction() {
   }
   
 }
-
